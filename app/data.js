@@ -27,17 +27,8 @@ class Data {
     const day = this._days[index]
     let color = (progress >= this._threshold) ? this._successColor : this._failColor
     let answer = (progress >= this._threshold)
-    console.log('this._successColor', this._successColor)
-    console.log('this._failColor', this._failColor)
-    console.log('color', color)
-    console.log('answer', answer)
-    console.log('progress', progress)
-    console.log('this._threshold', this._threshold)
 
-    // this.week.push({ day: day.day, key: day.key, progress: progress, color: color, dayOfWeek: day.dayOfWeek })
-    this.week.push({ ...day, color: color, progress: progress })
-
-    // console.log(this.week);
+    this.week.push({ ...day, color, progress })
 
     return this.week
   }

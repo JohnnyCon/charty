@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import {
   Slider,
   StyleSheet,
@@ -14,21 +15,27 @@ import Data   from './data';
 
 
 class App extends Component {
+
   constructor(props){
     super(props)
 
-    data = new Data();
-    console.log('data.week', data.week);
+    let data = new Data();
     this.state = {
       data: data,
-      value: 5,
+      progress: 5,
       week: data.week,
     }
   }
 
-  addStats() {
+  addDay() {
     let data = this.state.data;
+    const newWeek = data.addDay({ progress: this.state.progress })
 
+    this.setState({ week: newWeek })
+  }
+
+  addRandomDay() {
+    let data = this.state.data;
     const newWeek = data.addDay({ progress: Math.random() * 100})
 
     this.setState({ week: newWeek })
@@ -52,18 +59,17 @@ class App extends Component {
       <View style={styles.container}>
         <View style={styles.controlPanel}>
           <View style={styles.sliderContainer}>
-            <Slider maximumValue={100} minimumValue={0} onValueChange={(value) => this.setState({value: value})} value={this.state.value} style={{width: 175, margin: 10}} />
-            <Text style={styles.text}>{this.state.value.toFixed(0)} for Monday</Text>
+            <Slider maximumValue={100} minimumValue={0} onValueChange={(value) => this.setState({progress: value})} value={this.state.progress} style={{width: 175, margin: 10}} />
+            <Text style={styles.text}>{this.state.progress.toFixed(0)} for Monday</Text>
           </View>
           <View style={styles.buttonContainer}>
-            <Button text="Add Day"   onclick={ () => this.addStats() } />
-            <Button text="Random" onclick={ () => {} } />
+            <Button text="Add Day" onclick={ () => this.addDay() } />
+            <Button text="Random"  onclick={ () => this.addRandomDay() } />
           </View>
         </View>
         <View style={styles.separator}></View>
         <View style={styles.buttonControls}>
-          <Button text="Reset" onclick={ () => this.resetStats() } />
-          <Button text="Replay" onclick={ () => {} } />
+          <Button text="Reset"  onclick={ () => this.resetStats() } />
         </View>
         <Svg width="400" height="300">
           { bricks }

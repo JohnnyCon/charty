@@ -17,9 +17,7 @@ class Bar extends Component {
     const margin  = 25
     const offset = (this.props.day.index * padding) + margin;
 
-
     return (
-
       <Motion defaultStyle={{x: 0}} style={{x: spring(this.props.day.progress, presets.wobbly) }}>
         {value => (
           <G>
